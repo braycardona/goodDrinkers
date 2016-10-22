@@ -1,5 +1,8 @@
 GIT CLONE:
-git clone https://github.com/braycardona/goodDrinkers.git
+git clone https://github.com/braycardona/goodDrinkers.git 'directorio'
+
+CHECKOUT:
+git checkout 'branch_name'
 
 CONFIGURAR REMOTO:
 git remote add origin https://github.com/braycardona/goodDrinkers.git
