@@ -1,0 +1,13 @@
+CONFIGURAR REMOTO:
+git remote add origin https://github.com/braycardona/goodDrinkers.git
+
+REVISAR CAMBIOS REALIZADOS:
+git status
+
+COMMIT:
+git add --all
+git commit -m 'nombre_commit'
+
+
+PUSH:
+git push --force origin master
