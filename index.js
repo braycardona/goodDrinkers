@@ -3,7 +3,7 @@ var bodyParser = require ('body-parser');
 var app = express();
 var connection = require('./mysql/connection');
 
-//Objetos
+//Objeto
 var tipo_documento = require('./routes/tipo_documento');
 var marca = require('./routes/marca');
 var persona = require('./routes/persona');
