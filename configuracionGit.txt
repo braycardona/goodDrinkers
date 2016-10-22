@@ -1,3 +1,6 @@
+GIT CLONE:
+git clone https://github.com/braycardona/goodDrinkers.git
+
 CONFIGURAR REMOTO:
 git remote add origin https://github.com/braycardona/goodDrinkers.git
 
