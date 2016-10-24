@@ -1,0 +1,125 @@
+CREATE DATABASE gooddrinker;
+USE gooddrinker;
+
+CREATE TABLE marca (
+  id_marca int(11) NOT NULL AUTO_INCREMENT,
+  nombre varchar(40) NOT NULL,
+  descripcion varchar(120) NOT NULL,
+  PRIMARY KEY (id_marca)
+);
+
+CREATE TABLE catalogo (
+  id_catalogo int(6) NOT NULL AUTO_INCREMENT,
+  nombre varchar(30) NOT NULL,
+  descripcion varchar(30) NOT NULL,
+  PRIMARY KEY (id_catalogo)
+);
+
+CREATE TABLE catalogo_x_producto (
+  id_catalogo int(11) NOT NULL,
+  id_producto int(11) NOT NULL,
+  PRIMARY KEY (id_catalogo,id_producto),
+  KEY fk_ProdCatalog (id_producto),
+  CONSTRAINT fk_Catalog FOREIGN KEY (id_catalogo) REFERENCES catalogo (id_catalogo),
+  CONSTRAINT fk_ProdCatalog FOREIGN KEY (id_producto) REFERENCES producto (id_producto)
+);
+
+CREATE TABLE producto (
+  id_producto int(6) NOT NULL AUTO_INCREMENT,
+  id_marca int(11) DEFAULT NULL,
+  referencia varchar(50) NOT NULL,
+  nombre varchar(50) NOT NULL,
+  descripcion varchar(120) NOT NULL,
+  venta decimal(12,2) DEFAULT NULL,
+  imagen varchar(40) DEFAULT NULL,
+  PRIMARY KEY (id_producto),
+  KEY fk_marcaProd (id_marca),
+  CONSTRAINT fk_marcaProd FOREIGN KEY (id_marca) REFERENCES marca (id_marca)
+);
+
+CREATE TABLE estado_pedido (
+  id_estado_pedido int(11) NOT NULL AUTO_INCREMENT,
+  nombre varchar(40) NOT NULL,
+  descripcion varchar(120) NOT NULL,
+  PRIMARY KEY (id_estado_pedido)
+);
+
+CREATE TABLE inventario (
+  id_inventario int(11) NOT NULL AUTO_INCREMENT,
+  id_producto int(11) NOT NULL,
+  disponible int(11) NOT NULL,
+  compromiso int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (id_inventario),
+  KEY fk_ProdInventario (id_producto),
+  CONSTRAINT fk_ProdInventario FOREIGN KEY (id_producto) REFERENCES producto (id_producto)
+);
+
+CREATE TABLE movimiento_inventario (
+  id_movimiento int(11) NOT NULL AUTO_INCREMENT,
+  id_inventario int(11) NOT NULL,
+  id_producto int(11) NOT NULL,
+  cantidad int(11) NOT NULL,
+  descripcion varchar(20) NOT NULL,
+  PRIMARY KEY (id_movimiento),
+  KEY fk_MovInvProd (id_producto),
+  KEY fk_MovInvPadre (id_inventario),
+  CONSTRAINT fk_MovInvPadre FOREIGN KEY (id_inventario) REFERENCES inventario (id_inventario),
+  CONSTRAINT fk_MovInvProd FOREIGN KEY (id_producto) REFERENCES producto (id_producto)
+);
+
+
+CREATE TABLE rol (
+  id_rol int(11) NOT NULL AUTO_INCREMENT,
+  nombre varchar(40) NOT NULL,
+  descripcion varchar(120) NOT NULL,
+  PRIMARY KEY (id_rol)
+);
+
+CREATE TABLE tipo_documento (
+  id_tipo_documento int(11) NOT NULL AUTO_INCREMENT,
+  nombre varchar(20) NOT NULL,
+  descripcion varchar(50) NOT NULL,
+  PRIMARY KEY (id_tipo_documento)
+);
+
+CREATE TABLE persona (
+  id_persona int(11) NOT NULL AUTO_INCREMENT,
+  nombre varchar(50) NOT NULL,
+  apellido varchar(80) NOT NULL,
+  documento int(11) NOT NULL,
+  tipo_documento int(11) NOT NULL,
+  usuario varchar(20) NOT NULL,
+  clave varchar(60) NOT NULL,
+  id_rol int(11) NOT NULL,
+  PRIMARY KEY (id_persona),
+  KEY fk_PersonaTipoDoc (tipo_documento),
+  KEY fk_PersonaRol (id_rol),
+  CONSTRAINT fk_PersonaRol FOREIGN KEY (id_rol) REFERENCES rol (id_rol),
+  CONSTRAINT fk_PersonaTipoDoc FOREIGN KEY (tipo_documento) REFERENCES tipo_documento (id_tipo_documento)
+);
+
+CREATE TABLE pedido (
+  id_pedido int(11) NOT NULL AUTO_INCREMENT,
+  id_persona int(11) NOT NULL,
+  id_estado_pedido int(11) NOT NULL,
+  total decimal(12,2) NOT NULL,
+  fecha_pedido datetime NOT NULL,
+  pagado tinyint(1) DEFAULT '0',
+  PRIMARY KEY (id_pedido),
+  KEY fk_PedidoPersona (id_persona),
+  KEY fk_PedidoEstado (id_estado_pedido),
+  CONSTRAINT fk_PedidoEstado FOREIGN KEY (id_estado_pedido) REFERENCES estado_pedido (id_estado_pedido),
+  CONSTRAINT fk_PedidoPersona FOREIGN KEY (id_persona) REFERENCES persona (id_persona)
+);
+
+CREATE TABLE detalle_pedido (
+  id_detalle_pedido int(11) NOT NULL,
+  id_pedido int(11) NOT NULL AUTO_INCREMENT,
+  id_producto int(11) NOT NULL,
+  cantidad int(11) NOT NULL,
+  sub_total decimal(12,2) NOT NULL,
+  PRIMARY KEY (id_pedido),
+  KEY fk_DetalleProd (id_producto),
+  CONSTRAINT fk_DetallePed FOREIGN KEY (id_pedido) REFERENCES pedido (id_pedido),
+  CONSTRAINT fk_DetalleProd FOREIGN KEY (id_producto) REFERENCES producto (id_producto)
+);
