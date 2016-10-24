@@ -1,4 +1,4 @@
-var connection = require('../mysql/connection');
+﻿var connection = require('../../mysql/connection');
 
 function CatalogoVista()
 {
