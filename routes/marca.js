@@ -1,4 +1,4 @@
-var Marca = require('./modelMarca');
+var Marca = require('model/modelMarca');
 
 module.exports ={
     configure: function(app){

@@ -1,4 +1,4 @@
-var Inv = require('./model_inventario');
+var Inv = require('model/model_inventario');
 
 module.exports ={
     configure: function(app){

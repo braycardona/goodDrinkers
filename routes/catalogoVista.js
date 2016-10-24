@@ -1,4 +1,4 @@
-var CatalogoVista = require('./modelCatalogo_producto');
+var CatalogoVista = require('model/modelCatalogo_producto');
 
 module.exports ={
     configure: function(app){
