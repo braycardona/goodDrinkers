@@ -1,4 +1,4 @@
-var Catalogo = require('model/modelCatalogo');
+var Catalogo = require('./model/modelCatalogo');
 
 module.exports ={
     configure: function(app){

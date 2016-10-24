@@ -1,4 +1,4 @@
-var Prod = require('model/modelProducto');
+var Prod = require('./model/modelProducto');
 
 module.exports ={
     configure: function(app){

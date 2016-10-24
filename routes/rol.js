@@ -1,4 +1,4 @@
-﻿var rol = require('model/modelRol');
+﻿var rol = require('./model/modelRol');
 
 module.exports ={
     configure: function(app){

@@ -1,4 +1,4 @@
-var TipoDoc = require('model/modelTipoDoc');
+var TipoDoc = require('./model/modelTipoDoc');
 
 module.exports ={
     configure: function(app){
